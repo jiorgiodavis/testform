@@ -8,3 +8,28 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~font-awesome/css/font-awesome.min.css";
+
+.arrow-indicator
+{
+    position:absolute;
+    left:-30px;
+    top:30px;
+    color:rgb(167, 21, 21);
+    opacity:0;
+}
+.arrow-indicator-right
+{
+    position:absolute;
+    left:102%;
+    top:30px;
+    color:rgb(167, 21, 21);
+    opacity:0;
+}
+.form-group
+{
+    position:relative;
+}
+.container
+{
+    padding:0px 30px 0px 30px;
+}
