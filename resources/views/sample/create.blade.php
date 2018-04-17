@@ -54,9 +54,11 @@
         
         
         
+        <div class='btn-group'>
+                <button type="button" class='btn btn-primary btn-center btnSave'>Save</button>
+                <button type='button' class='btn btn-default btnNext'><i class='fa fa-angle-right'></i>Next</button>
+        </div>
         
-        
-        <button type="button" class='btn btn-primary btn-center btnSave'>Save</button>
     </form>
 </div>
 @endsection
@@ -64,14 +66,45 @@
 @push("scripts")
     <script>
         $(function() {
+            var context = $("#frmUser");
+            var textInput = $(".form-control",context);
             $(".btnSave").click(function() { $("#frmUser").submit(); });
-            $(".form-control").keypress(function() {
+            
+            $(".form-control",context).keypress(function() {
                 $(this).next().html("");
                 $(this).prev(".arrow-indicator, .arrow-indicator-right").remove();
+                $(".form-control",context).removeAttr("current-index");
+                $(this).attr("current-index",textInput.index($(this)));
+            }).keyup(function() {
+                if($(this).val() != "" && $(".proceedNext").length == 0)
+                {
+               
+                    $("<a href='javascript:void(0)' class='proceedNext'>Proceed Next <i class='fa fa-angle-right'></i></a>").insertBefore($(this));
+                }
+            }).focus(function() {
+                $(".proceedNext").remove();
+            });
+            $(document).on("click",".proceedNext",function() {
+                $(".btnNext").trigger("click");
+
+            });
+            $(document).on("click",".btnNext",function() {
+                var index = 0;
+                if($("[current-index]").length > 0)
+                {
+                    index = parseInt($("[current-index]").attr("current-index"));
+                    index +=1;
+                } 
+              
+                if(index >= $(".form-control",context).length)
+                {
+                    index = 0;
+                }
+                $(".form-control",context).removeAttr("current-index");
+                $(".form-control:eq("+index+")").focus().attr("current-index",index);
             });
             $("#frmUser").submit(function() 
             {
-                var context = $(this);
                 var hasEmptyField = false;
                 $(".arrow-indicator, .arrow-indicator-right").remove();
                 var counter = 0;
