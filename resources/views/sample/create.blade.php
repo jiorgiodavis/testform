@@ -86,14 +86,30 @@
             });
             $(document).on("click",".proceedNext",function() {
                 $(".btnNext").trigger("click");
-
             });
             $(document).on("click",".btnNext",function() {
                 var index = 0;
                 if($("[current-index]").length > 0)
                 {
-                    index = parseInt($("[current-index]").attr("current-index"));
-                    index +=1;
+                    //index = parseInt($("[current-index]").attr("current-index"));
+                    
+                    var currentIndex = index;
+                    var hasEmpty = false;
+                    $(".form-control",context).each(function() {
+                            if($.trim($(this).val()) == "")
+                            {
+                                currentIndex = index;
+                                hasEmpty = true;
+                                return false;
+                            }
+                            index++;
+                    });
+                    if(!hasEmpty)
+                    {
+                        $(":button:contains('Save')",context).addClass("btn-success");
+                    } else {
+                        $(":button:contains('Save')",context).removeClass("btn-success");
+                    }
                 } 
               
                 if(index >= $(".form-control",context).length)
