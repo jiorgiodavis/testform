@@ -75,6 +75,7 @@
                 $(this).prev(".arrow-indicator, .arrow-indicator-right").remove();
                 $(".form-control",context).removeAttr("current-index");
                 $(this).attr("current-index",textInput.index($(this)));
+                $(this).removeClass("required-text");
             }).keyup(function() {
                 if($(this).val() != "" && $(".proceedNext").length == 0)
                 {
@@ -117,7 +118,7 @@
                     index = 0;
                 }
                 $(".form-control",context).removeAttr("current-index");
-                $(".form-control:eq("+index+")").focus().attr("current-index",index);
+                $(".form-control:eq("+index+")").focus().attr("current-index",index).addClass("required-text");
             });
             $("#frmUser").submit(function() 
             {
@@ -134,7 +135,7 @@
                         } else {
                             $("<i class='fa fa-arrow-right fa-2x arrow-indicator'></i>").insertBefore($(this));
                         }
-                        
+                        $(this).addClass("required-text");
                         $(".arrow-indicator, .arrow-indicator-right").animate({"opacity":"1"},500);
                         $(this).next().html("<i class='fa fa-angle-right'></i>&nbsp;This field is required.");
                         hasEmptyField = true;                        
